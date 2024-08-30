@@ -77,12 +77,16 @@ extension Article {
         let jsonDecoder = JSONDecoder()
         jsonDecoder.dateDecodingStrategy = .iso8601
         
-        do {
-            let articles = try jsonDecoder.decode([Article].self, from: data)
-            return articles
-        } catch {
-            fatalError("Failed to decode JSON data: \(error)")
-        }
+//        do {
+//            let articles = try jsonDecoder.decode([Article].self, from: data)
+//            return articles
+//        } catch {
+//            fatalError("Failed to decode JSON data: \(error)")
+//        }
+        
+        let apiResponse = try!
+            jsonDecoder.decode(NewsAPIResponse.self, from: data)
+        return apiResponse.articles ?? []
     }
 }
 
